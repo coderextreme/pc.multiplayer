@@ -1,8 +1,8 @@
-var app = require('express')();
-var http = require('http').Server(app);
+var express = require('express')();
+var http = require('http').Server(express);
 var io = require('socket.io')(http);
 
-app.get('/', function(req, res){
+express.get('/', function(req, res){
   res.sendfile('index.html');
 });
 
@@ -140,6 +140,6 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
-});
+var port = 8080;
+var app = express();
+app.listen(port)
