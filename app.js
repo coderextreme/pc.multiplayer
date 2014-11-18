@@ -141,5 +141,5 @@ io.on('connection', function(socket){
 });
 
 var port = 8080;
-var app = express();
-app.listen(port)
+http.listen(port);
+console.log('http server started on port %s', port);
