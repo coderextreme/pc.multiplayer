@@ -11,6 +11,9 @@
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
+      #score { list-style-type: none; margin: 0; padding: 0; }
+      #score li { padding: 5px 10px; }
+      #score li:nth-child(odd) { background: #eee; }
     </style>
     <script src="/socket.io/socket.io.js"></script>
 	<script>
@@ -58,6 +61,7 @@
     </div>
     <div style="position:absolute;left:0px;top:0px;z-index:0;opacity:0.5">
     <ul id="messages"></ul>
+    <ul id="score"></ul>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
@@ -124,11 +128,18 @@ Player.prototype = {
 	servererror: function() { console.log(arguments);},
 	serverroompurge: function() { console.log(arguments);},
 	serverroomready: function() { console.log(arguments);},
-	serverscore: function() { console.log(arguments);},
 	serverpowerplay: function() { console.log(arguments);},
 	servercounter: function() { console.log(arguments);},
 	serverturnbegin: function() { console.log(arguments);},
 	serverturnend: function() { console.log(arguments);},
+	serverscore: function(playernumber, score) {
+		players[playernumber] = score;
+		if (score == 1) {
+			$('#score').append($('<li id="'+playernumber+'">').text(playernumber+" has "+score+" points"));
+		} else {
+			$('#'+playernumber).text(playernumber+" has "+score+" points");
+		}
+	},
 	servercapability: function() {
 		if ( history.pushState ) {
 			var href = location.href;

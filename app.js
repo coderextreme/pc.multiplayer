@@ -57,7 +57,9 @@ Multiplayer.prototype = {
 						players[player].position[2] == players[socket.client.id].position[2]) {
 						// reset to beginning
 						players[player].position = [0,0,0];
+						players[socket.client.id].score++;
 						io.emit('serverupdate', players[player].playernumber, players[player].position, players[player].orientation);
+						io.emit('serverscore', players[socket.client.id].playernumber, players[socket.client.id].score);
 					}
 				}
 			}
@@ -75,7 +77,7 @@ Multiplayer.prototype = {
 		if (i >= 0) {
 			id = msg[0].substring(i+1);
 			if (typeof oldplayers[id] !== 'undefined') {
-				players[socket.client.id] = { playernumber: oldplayers[id].playernumber, id: socket.client.id };
+				players[socket.client.id] = { playernumber: oldplayers[id].playernumber, id: socket.client.id, score: oldplayers[id].score };
 				socket.emit('servermessage', 'Your previous id was '+id);
 				socket.emit('servermessage', 'Your current id is '+socket.client.id);
 				console.log(players[socket.client.id]);
@@ -90,7 +92,7 @@ Multiplayer.prototype = {
 		}
 	},
 	clientjoin: function(socket) {
-		players[socket.client.id] = {playernumber: maxplayers, id: socket.client.id};
+		players[socket.client.id] = {playernumber: maxplayers, id: socket.client.id, score:0};
 		console.log(players[socket.client.id]);
 		maxplayers++;
 		io.emit('servermessage', players[socket.client.id].playernumber+" joined.");
