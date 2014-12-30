@@ -1,10 +1,11 @@
-var express = require('express')();
-var http = require('http').Server(express);
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-express.get('/', function(req, res){
-  res.sendfile(__dirname + '/public/index.html');
-});
+
+app.use(express.static(__dirname + '/public'));
+
 
 function Multiplayer() {
 };
@@ -142,6 +143,7 @@ io.on('connection', function(socket){
   });
 });
 
-var port = 8080;
-http.listen(port);
-console.log('http server started on port %s', port);
+http.listen(process.env.PORT || 8080);
+
+console.log('express server started on port %s', process.env.PORT || 8080);
+
