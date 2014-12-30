@@ -16,6 +16,7 @@
       #score li:nth-child(odd) { background: #eee; }
       #map { width: 600px; height: 500px; }
       #chat { width: 500px; height: 500px; }
+      #canvas { pointer-events: none; }
     </style>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <script src="/socket.io/socket.io.js"></script>
@@ -56,12 +57,12 @@
 	}
 	</script>
   </head>
-  <body>
-    <div style="position:absolute;left:0px;top:0px;z-index:1;opacity:0.5">
-	<canvas onmousemove="eventMove(event); return true;" id="canvas" width="600" height="500">
+  <body onmousemove="eventMove(event); return false;">
+    <div style="position:absolute;left:0px;top:0px;z-index:0;opacity:1.0">
+	<canvas id="canvas" width="600" height="500">
 	</canvas>
     </div>
-    <div id="map" style="position:absolute;left:0px;top:0px;z-index:0;opacity:1.0"></div>
+    <div id="map" style="position:absolute;left:0px;top:0px;z-index:1;opacity:0.5"></div>
 
     <div id="chat" style="position:absolute;left:600px;top:0px">
     <ul id="messages"></ul>
