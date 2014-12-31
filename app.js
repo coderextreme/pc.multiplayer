@@ -143,7 +143,7 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(process.env.PORT || 8080);
+http.listen(process.env.PORT || 8088);
 
 console.log('express server started on port %s', process.env.PORT || 8080);
 
