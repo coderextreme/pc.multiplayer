@@ -6,11 +6,11 @@ QUnit.test( "hello test", function( assert ) {
         };
  
 	var client = io.connect("http://localhost:8080", options);
-	assert.ok(client !== null, "Passed!");
+	assert.ok(client !== null, "io connect!");
  
         client.once("connect", function () {
             client.once("servermessage", function (message) {
-		assert.ok( message.substring(2,9) == "joined.", "Passed!" );
+		assert.ok( message.substring(2,9) == "joined.", "client joined!" );
  
                 client.disconnect();
             });
