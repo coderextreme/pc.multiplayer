@@ -22,7 +22,7 @@ module.exports = function(grunt) {
       }
     },
     qunit: {
-      files: ['public/**/*.html']
+      files: ['test/**/*.html']
     },
     jshint: {
       files: ['Gruntfile.js', 'public/**/*.js', 'test/**/*.js'],
