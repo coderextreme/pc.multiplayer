@@ -24,6 +24,16 @@ module.exports = function(grunt) {
     qunit: {
       files: ['test/**/*.html']
     },
+    simplemocha: {
+            options: {
+                globals: ['expect'],
+                timeout: 3000,
+                ignoreLeaks: false,
+                ui: 'bdd',
+                reporter: 'tap'
+            },
+            all: { src: ['tests/*.js'] }
+    },
     jshint: {
       files: ['Gruntfile.js', 'public/**/*.js', 'test/**/*.js'],
       options: {
@@ -47,9 +57,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-simple-mocha');
 
-  grunt.registerTask('test', ['jshint', 'qunit']);
+  grunt.registerTask('test', ['jshint', 'simplemocha', 'qunit']);
 
-  grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'simplemocha', 'qunit', 'concat', 'uglify']);
 
 };

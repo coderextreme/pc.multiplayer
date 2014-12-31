@@ -14,12 +14,12 @@ QUnit.test( "join test", function( assert ) {
  
         client.once("connect", function () {
             client.once("servermessage", function (message) {
-		assert.ok( message.substring(2,9) === "joined.", "Passed!");
+		assert.ok( message === "1 joined.", "Passed!");
  
                 client.disconnect();
 		done();
             });
  
-	    client.emit('clientrejoin', location.href);
+	    client.emit('clientrejoin', "GOOBERS");
         });
 });

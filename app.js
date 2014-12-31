@@ -16,7 +16,7 @@ var oldplayers = {};
 
 function reportPlayers() {
 	var numPlayers = 0;
-	for (p in players) {
+	for (var p in players) {
 		numPlayers++;
 	}
 	io.emit('servermessage', "The game has "+numPlayers+" player"+(numPlayers > 1 ? "s." : "."));
