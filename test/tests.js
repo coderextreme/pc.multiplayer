@@ -1,3 +1,8 @@
+//QUnit.module( "express", {
+//	setup: function( assert ) {
+//		require("../app.js");
+//	}
+//});
 QUnit.test( "join test", function( assert ) {
 	var done = assert.async();
 	var options = {

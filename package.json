@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "PlayCanvas multiplayer example game",
   "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/coderextreme/pc.multiplayer.git"
+  },
   "dependencies": {
     "express": "~4.9.0",
     "socket.io": "1.2.1"
