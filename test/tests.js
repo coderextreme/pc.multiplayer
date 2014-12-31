@@ -5,7 +5,7 @@ QUnit.test( "join test", function( assert ) {
             'force new connection': true
         };
  
-	var client = io.connect("http://localhost:8080", options);
+	var client = io.connect("http://localhost:8088", options);
  
         client.once("connect", function () {
             client.once("servermessage", function (message) {
