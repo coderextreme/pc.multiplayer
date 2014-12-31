@@ -1,5 +1,5 @@
 QUnit.test( "hello test", function( assert ) {
-	assert.expect(2);
+	assert.async()
 	var options = {
             transports: ['websocket'],
             'force new connection': true
@@ -10,7 +10,7 @@ QUnit.test( "hello test", function( assert ) {
  
         client.once("connect", function () {
             client.once("servermessage", function (message) {
-		assert.ok( message == "0 joined.", "Passed!" );
+		assert.ok( message.substring(2,9) == "joined.", "Passed!" );
  
                 client.disconnect();
             });
