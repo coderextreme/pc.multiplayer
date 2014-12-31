@@ -1,5 +1,5 @@
 function Player() {
-};
+}
 
 var players = [];
 var thisplayer = -1;
@@ -37,15 +37,15 @@ Player.prototype = {
 		players[playernumber] = {
 			position: position,
 			orientation: orientation
-		}
+		};
 		// $('#messages').append($('<li>').text(playernumber+" this "+thisplayer));
 		if (thisplayer == playernumber) {
-			if (position[0] == 0 && position[1] == 0 && position[2] == 0) {
+			if (position[0] === 0 && position[1] === 0 && position[2] === 0) {
 				alert("Beginning again");
 			}
 			// only move towards mouse if this player is the one who got updated
 			if (oldevx != position[0] || oldevy != position[1]) {
-				move(oldevx,oldevy)
+				move(oldevx,oldevy);
 			}
 		}
         },
@@ -87,22 +87,22 @@ Player.prototype = {
         $('#m').val('');
         return false;
       });
-  socket.on('servermessage', Player.prototype['servermessage']);
-  socket.on('serverupdate', Player.prototype['serverupdate']);
-  socket.on('serverheal', Player.prototype['serverheal']);
-  socket.on('serverdamage', Player.prototype['serverdamage']);
-  socket.on('servercollision', Player.prototype['servercollision']);
-  socket.on('serverorderchange', Player.prototype['serverorderchange']);
-  socket.on('serverdie', Player.prototype['serverdie']);
-  socket.on('servererror', Player.prototype['servererror']);
-  socket.on('serverroompurge', Player.prototype['serverroompurge']);
-  socket.on('serverroomready', Player.prototype['serverroomready']);
-  socket.on('serverscore', Player.prototype['serverscore']);
-  socket.on('serverpowerplay', Player.prototype['serverpowerplay']);
-  socket.on('servercounter', Player.prototype['servercounter']);
-  socket.on('serverturnbegin', Player.prototype['serverturnbegin']);
-  socket.on('serverturnend', Player.prototype['serverturnend']);
-  socket.on('servercapability', Player.prototype['servercapability']);
+  socket.on('servermessage', Player.prototype.servermessage);
+  socket.on('serverupdate', Player.prototype.serverupdate);
+  socket.on('serverheal', Player.prototype.serverheal);
+  socket.on('serverdamage', Player.prototype.serverdamage);
+  socket.on('servercollision', Player.prototype.servercollision);
+  socket.on('serverorderchange', Player.prototype.serverorderchange);
+  socket.on('serverdie', Player.prototype.serverdie);
+  socket.on('servererror', Player.prototype.servererror);
+  socket.on('serverroompurge', Player.prototype.serverroompurge);
+  socket.on('serverroomready', Player.prototype.serverroomready);
+  socket.on('serverscore', Player.prototype.serverscore);
+  socket.on('serverpowerplay', Player.prototype.serverpowerplay);
+  socket.on('servercounter', Player.prototype.servercounter);
+  socket.on('serverturnbegin', Player.prototype.serverturnbegin);
+  socket.on('serverturnend', Player.prototype.serverturnend);
+  socket.on('servercapability', Player.prototype.servercapability);
   socket.emit('clientrejoin', location.href);
   socket.emit('clientmove', [0,0,0,0,0,0]);
   // socket.emit('clientjoin');

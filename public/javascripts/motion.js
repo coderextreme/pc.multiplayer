@@ -27,7 +27,7 @@
 */
 		oldevx = x;
 		oldevy = y;
-	};
+	}
 	function eventMove(event) {
 		move(event.clientX, event.clientY);
 	}

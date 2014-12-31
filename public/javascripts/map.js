@@ -9,7 +9,7 @@ canvasTiles.drawTile = function(canvas, tilePoint, zoom) {
     var ctx = canvas.getContext('2d');
     ctx.strokeStyle = "#FF0000";
     ctx.strokeRect(0,0,256,256);
-}
+};
 
 // create a map in the "map" div, set the view to a given place and zoom
 var map = L.map('map', {
