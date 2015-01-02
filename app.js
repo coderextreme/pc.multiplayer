@@ -76,7 +76,7 @@ Multiplayer.prototype = {
 	clientrejoin: function(socket, msg) {
 		var i = msg[0].indexOf("?");
 		if (i >= 0) {
-			id = msg[0].substring(i+1);
+			var id = msg[0].substring(i+1);
 			if (typeof oldplayers[id] !== 'undefined') {
 				players[socket.client.id] = { playernumber: oldplayers[id].playernumber, id: socket.client.id, score: oldplayers[id].score };
 				socket.emit('servermessage', 'Your previous id was '+id);
