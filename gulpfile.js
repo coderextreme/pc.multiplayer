@@ -5,7 +5,7 @@ var jshint = require('gulp-jshint');
 
 
 gulp.task('default', function(){
-  gulp.run('jshint', 'mocha');
+  gulp.run('jshint', 'mocha', 'watch-mocha');
 });
 
 gulp.task('mocha', function() {
