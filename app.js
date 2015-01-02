@@ -8,7 +8,7 @@ app.use(express.static(__dirname + '/public'));
 
 
 function Multiplayer() {
-};
+}
 
 var maxplayers = 0;
 var players = {};
@@ -86,10 +86,10 @@ Multiplayer.prototype = {
 				reportPlayers();
 				socket.emit('servercapability', players[socket.client.id], players[socket.client.id].playernumber);
 			} else {
-				Multiplayer.prototype['clientjoin'](socket);
+				Multiplayer.prototype.clientjoin(socket);
 			}
 		} else {
-			Multiplayer.prototype['clientjoin'](socket);
+			Multiplayer.prototype.clientjoin(socket);
 		}
 	},
 	clientjoin: function(socket) {
@@ -104,33 +104,33 @@ Multiplayer.prototype = {
 io.on('connection', function(socket){
   socket.on('clientmessage', function() {
 	if (players[socket.client.id]) {
-		Multiplayer.prototype['clientmessage'](socket, arguments);
+		Multiplayer.prototype.clientmessage(socket, arguments);
 	} else {
 		socket.emit('servermessage', "You need to join before sending messages");
 	}
   });
   socket.on('clientmove', function() {
 	if (players[socket.client.id]) { // if joined
-		Multiplayer.prototype['clientmove'](socket, arguments);
+		Multiplayer.prototype.clientmove(socket, arguments);
 	}
   });
-  socket.on('clientshoot', Multiplayer.prototype['clientshoot']);
-  socket.on('clientslash', Multiplayer.prototype['clientslash']);
-  socket.on('clientpowerplay', Multiplayer.prototype['clientpowerplay']);
-  socket.on('clientcounter', Multiplayer.prototype['clientcounter']);
-  socket.on('clientquit', Multiplayer.prototype['clientquit']);
-  socket.on('clientturnbegin', Multiplayer.prototype['clientturnbegin']);
-  socket.on('clientturnend', Multiplayer.prototype['clientturnend']);
+  socket.on('clientshoot', Multiplayer.prototype.clientshoot);
+  socket.on('clientslash', Multiplayer.prototype.clientslash);
+  socket.on('clientpowerplay', Multiplayer.prototype.clientpowerplay);
+  socket.on('clientcounter', Multiplayer.prototype.clientcounter);
+  socket.on('clientquit', Multiplayer.prototype.clientquit);
+  socket.on('clientturnbegin', Multiplayer.prototype.clientturnbegin);
+  socket.on('clientturnend', Multiplayer.prototype.clientturnend);
   socket.on('clientrejoin', function () {
 	if (players[socket.client.id]) {
 	} else {
-		Multiplayer.prototype['clientrejoin'](socket, arguments);
+		Multiplayer.prototype.clientrejoin(socket, arguments);
 	}
   });
   socket.on('clientjoin', function () {
 	if (players[socket.client.id]) {
 	} else {
-		Multiplayer.prototype['clientjoin'](socket);
+		Multiplayer.prototype.clientjoin(socket);
 	}
   });
   socket.on('disconnect', function(){
@@ -145,7 +145,12 @@ io.on('connection', function(socket){
 
 var defaultPort = 8088;
 
-http.listen(process.env.PORT || defaultPort);
+module.exports = http.listen(process.env.PORT || defaultPort);
 
 console.log('express server started on port %s', process.env.PORT || defaultPort);
 
+http.on('error', function (e) {
+  if (e.code == 'EADDRINUSE') {
+    console.log('Address in use, exiting...');
+  }
+});

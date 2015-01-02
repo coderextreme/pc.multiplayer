@@ -5,7 +5,7 @@ var assert = chai.assert;
 
 var io = require('socket.io-client');
 
-describe( "join test", function() {
+describe( "app test", function() {
     var server,
 	options = {
             transports: ['websocket'],
@@ -18,17 +18,22 @@ describe( "join test", function() {
 	done();
     });
     var client = io.connect("http://localhost:8088", options);
+
+    var firstPlayer = 0;
  
  
     it("should rejoin the server and get a join message back", function (done) {
         client.once("connect", function () {
             client.once("servercapability", function (message) {
-		assert.equal(message.playernumber, 0);
-		assert.equal(message.id.substring(16,20), "AAAA");
-		assert.equal(message.score, 0);
+		assert.equal(message.playernumber, firstPlayer);
+		assert.equal(message.id.substring(16,20), (0xAAAA + firstPlayer).toString(16).toUpperCase() )
+		console.log("score = "+message.score);
+		assert.equal(message.score, 0, "Score");
             });
             client.once("servermessage", function (message) {
-		message.should.equal("0 joined.");
+		message.substring(message.indexOf(" ")).should.equal(" joined.");
+		firstPlayer = parseInt(message.substring(0, message.indexOf(" ")));
+		console.log("first Player = "+firstPlayer);
  
 		done();
             });
@@ -40,11 +45,13 @@ describe( "join test", function() {
 
     it("should send 2 client move messages and receive a server updates", function (done) {
             client.once("serverupdate", function (player, position, orientation) {
-		player.should.equal(0);
+		console.log("player = "+player);
+		console.log("first Player = "+firstPlayer);
+		player.should.equal(firstPlayer);
 		assert.deepEqual(position, [0,0,0], "Position");
 		assert.deepEqual(orientation, [0,0,0], "Orientation");
                 client.once("serverupdate", function (player, position, orientation) {
-			player.should.equal(0);
+			player.should.equal(firstPlayer);
 			assert.deepEqual(position, [1,0,0], "Position");
 			assert.deepEqual(orientation, [1,0,0], "Orientation");
 			done();
@@ -55,7 +62,8 @@ describe( "join test", function() {
     });
     it("should send message and receive a server message", function (done) {
             client.once("servermessage", function (message) {
-		message.should.equal("<0> Hello World");
+		console.log("first Player = "+firstPlayer);
+		message.should.equal("<"+firstPlayer+"> Hello World");
 		client.disconnect();
 		done();
             });

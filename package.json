@@ -22,6 +22,9 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-simple-mocha": "*",
     "gulp": "^3.8.10",
+    "gulp-jshint": "^1.9.0",
+    "gulp-mocha": "^2.0.0",
+    "gulp-util": "^3.0.1",
     "mocha": "*",
     "socket.io-client": "1.2.1"
   }
