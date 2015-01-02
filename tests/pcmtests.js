@@ -1,6 +1,7 @@
 var chai = require('chai');
 var mocha = require('mocha');
-    should = chai.should();
+var should = chai.should();
+var assert = chai.assert;
 
 var io = require('socket.io-client');
 
@@ -38,12 +39,12 @@ describe( "join test", function() {
     it("should send 2 client move messages and receive a server updates", function (done) {
             client.once("serverupdate", function (player, position, orientation) {
 		player.should.equal(0);
-		JSON.stringify(position).should.equal(JSON.stringify([0,0,0]));
-		JSON.stringify(orientation).should.equal(JSON.stringify([0,0,0]));
+		assert.deepEqual(position, [0,0,0], "Position");
+		assert.deepEqual(orientation, [0,0,0], "Orientation");
                 client.once("serverupdate", function (player, position, orientation) {
 			player.should.equal(0);
-			JSON.stringify(position).should.equal(JSON.stringify([1,0,0]));
-			JSON.stringify(orientation).should.equal(JSON.stringify([1,0,0]));
+			assert.deepEqual(position, [1,0,0], "Position");
+			assert.deepEqual(orientation, [1,0,0], "Orientation");
 			client.disconnect();
 			done();
 		});
