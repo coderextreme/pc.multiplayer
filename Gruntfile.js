@@ -21,9 +21,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    qunit: {
-      files: ['test/**/*.html']
-    },
     simplemocha: {
             options: {
                 globals: ['expect'],
@@ -35,7 +32,7 @@ module.exports = function(grunt) {
             all: { src: ['tests/*.js'] }
     },
     jshint: {
-      files: ['**.js', 'public/**/*.js', 'test/**/*.js'],
+      files: ['**.js', 'public/**/*.js', 'tests/**/*.js'],
       options: {
         // options here to override JSHint defaults
         globals: {
@@ -48,19 +45,18 @@ module.exports = function(grunt) {
     },
     watch: {
       files: ['<%= jshint.files %>'],
-      tasks: ['jshint', 'qunit']
+      tasks: ['jshint', 'simplemocha']
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-simple-mocha');
 
-  grunt.registerTask('test', ['jshint', 'simplemocha', 'qunit']);
+  grunt.registerTask('test', ['jshint', 'simplemocha']);
 
-  grunt.registerTask('default', ['jshint', 'simplemocha', 'qunit', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'simplemocha', 'concat', 'uglify']);
 
 };

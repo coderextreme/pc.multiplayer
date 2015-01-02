@@ -26,7 +26,7 @@ describe( "app test", function() {
         client.once("connect", function () {
             client.once("servercapability", function (message) {
 		assert.equal(message.playernumber, firstPlayer);
-		assert.equal(message.id.substring(16,20), (0xAAAA + firstPlayer).toString(16).toUpperCase() )
+		assert.equal(message.id.substring(16,20), (0xAAAA + firstPlayer).toString(16).toUpperCase() );
 		console.log("score = "+message.score);
 		assert.equal(message.score, 0, "Score");
             });
