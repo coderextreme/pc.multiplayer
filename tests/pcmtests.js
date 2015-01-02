@@ -23,7 +23,9 @@ describe( "join test", function() {
     it("should rejoin the server and get a join message back", function (done) {
         client.once("connect", function () {
             client.once("servercapability", function (message) {
-		console.log(message);
+		assert.equal(message.playernumber, 0);
+		assert.equal(message.id.substring(16,20), "AAAA");
+		assert.equal(message.score, 0);
             });
             client.once("servermessage", function (message) {
 		message.should.equal("0 joined.");
@@ -45,11 +47,18 @@ describe( "join test", function() {
 			player.should.equal(0);
 			assert.deepEqual(position, [1,0,0], "Position");
 			assert.deepEqual(orientation, [1,0,0], "Orientation");
-			client.disconnect();
 			done();
 		});
 	        client.emit('clientmove', [1,0,0,1,0,0]);
             });
 	    client.emit('clientmove', [0,0,0,0,0,0]);
+    });
+    it("should send message and receive a server message", function (done) {
+            client.once("servermessage", function (message) {
+		message.should.equal("<0> Hello World");
+		client.disconnect();
+		done();
+            });
+	    client.emit('clientmessage', "Hello World");
     });
 });
