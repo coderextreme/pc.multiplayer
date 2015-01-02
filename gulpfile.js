@@ -15,7 +15,7 @@ gulp.task('mocha', function() {
 });
 
 gulp.task('watch-mocha', function() {
-    gulp.watch(['app.js', 'public/**/**.js', 'tests/**'], ['mocha']);
+    gulp.watch(['app.js', 'public/**/**.js', 'tests/**'], ['jshint', 'mocha']);
 });
 
 gulp.task('jshint', function() {  

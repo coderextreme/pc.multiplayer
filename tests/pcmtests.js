@@ -26,7 +26,10 @@ describe( "app test", function() {
         client.once("connect", function () {
             client.once("servercapability", function (message) {
 		assert.equal(message.playernumber, firstPlayer);
-		assert.equal(message.id.substring(16,20), (0xAAAA + firstPlayer).toString(16).toUpperCase() );
+		if (firstPlayer < 26) {
+			// works for first 26 players, then we get AAAa TODO
+			assert.equal(message.id.substring(16,20), (parseInt("AAAA",36) + firstPlayer).toString(36).toUpperCase() );
+		}
 		console.log("score = "+message.score);
 		assert.equal(message.score, 0, "Score");
             });
@@ -38,7 +41,7 @@ describe( "app test", function() {
 		done();
             });
  
-	    client.emit('clientrejoin', "GOOBERS");
+	    client.emit('clientrejoin', "http://localhost:8088?GOOBERS");
         });
     });
 
