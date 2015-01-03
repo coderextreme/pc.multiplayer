@@ -59,9 +59,9 @@ describe( "app test", function() {
 			assert.deepEqual(orientation, [1,0,0], "Orientation");
 			done();
 		});
-	        client.emit('clientmove', [1,0,0,1,0,0]);
+	        client.emit('clientmove', [1,0,0],[1,0,0]);
             });
-	    client.emit('clientmove', [0,0,0,0,0,0]);
+	    client.emit('clientmove', [0,0,0],[0,0,0]);
     });
     it("should send message and receive a server message", function (done) {
             client.once("servermessage", function (message) {

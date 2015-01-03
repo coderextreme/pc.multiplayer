@@ -13,8 +13,14 @@ canvasTiles.drawTile = function(canvas, tilePoint, zoom) {
 
 // create a map in the "map" div, set the view to a given place and zoom
 var map = L.map('map', {
-	center: [51.505, -0.09],
+	center: [0, 0],
 	zoom: 13,
 	layers: [streets, canvasTiles]
 	});
 
+var popup = L.popup();
+
+function eventMove(event) {
+	move([event.latlng.lng, event.latlng.lat, 0]);
+}
+map.on('click', eventMove);

@@ -26,9 +26,11 @@ Multiplayer.prototype = {
 	clientmessage: function(socket, msg) {
 		io.emit('servermessage', "<"+players[socket.client.id].playernumber+"> "+msg[0]);
 	},
-	clientmove: function(socket, msg) {
+	clientmove: function(socket, position, orientation) {
+		console.log(position);
+		console.log(orientation);
 		if (typeof players[socket.client.id].position !== 'undefined') {
-			var newposition = msg[0].slice(0, 3);
+			var newposition = position;
 			var oldposition = players[socket.client.id].position;
 			var delta = [newposition[0] - oldposition[0], 
 				newposition[1] - oldposition[1], 
@@ -42,20 +44,26 @@ Multiplayer.prototype = {
 			} else {
 				players[socket.client.id].position = newposition;
 			}
-			players[socket.client.id].orientation = msg[0].slice(3,6);
+			players[socket.client.id].orientation = orientation;
 		} else {
 			players[socket.client.id].position = [0,0,0];
-			players[socket.client.id].orientation = msg[0].slice(3,6);
+			players[socket.client.id].orientation = orientation;
 		}
 		io.emit('serverupdate', players[socket.client.id].playernumber, players[socket.client.id].position, players[socket.client.id].orientation);
+		function close(v1, v2) {
+			return Math.abs(v1 - v2) < 0.01;
+		}
+		function inRange(p1, p2) {
+			return (close(p1.position[0], p2.position[0]) &&
+				close(p1.position[1], p2.position[1]) &&
+				close(p1.position[2], p2.position[2]));
+		}
 		for (var player in players) {
 			// test collisions
 			if (player != socket.client.id) {
 				if (typeof players[player].position !== 'undefined') {
 					// player has moved
-					if (players[player].position[0] == players[socket.client.id].position[0] &&
-						players[player].position[1] == players[socket.client.id].position[1] &&
-						players[player].position[2] == players[socket.client.id].position[2]) {
+					if (inRange(players[player], players[socket.client.id])) {
 						// reset to beginning
 						players[player].position = [0,0,0];
 						players[socket.client.id].score++;
@@ -111,7 +119,8 @@ io.on('connection', function(socket){
   });
   socket.on('clientmove', function() {
 	if (players[socket.client.id]) { // if joined
-		Multiplayer.prototype.clientmove(socket, arguments);
+		console.log(arguments);
+		Multiplayer.prototype.clientmove(socket, arguments[0], arguments[1]);
 	}
   });
   socket.on('clientshoot', Multiplayer.prototype.clientshoot);

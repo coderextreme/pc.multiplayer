@@ -1,51 +1,46 @@
 function Player() {
 }
 
-var players = [];
-var thisplayer = -1;
-
 Player.prototype = {
 	servermessage: function(msg) {
 		$('#messages').append($('<li>').text(msg));
 	},
 	serverupdate: function(playernumber, position, orientation) {
 		// $('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+orientation));
-		var canvas = document.getElementById('canvas');
-		var context = canvas.getContext('2d');
 		if (typeof players[playernumber] === 'undefined') {
 			$('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+orientation));
 			players[playernumber] = {
 				position: position,
-				orientation: orientation
+				orientation: orientation,
+				marker: L.marker(position).addTo(map)
 			};
 			$('#messages').append($('<li>').text(playernumber+" initialized"));
+		} else {
+			players[playernumber].position = position;
+			players[playernumber].orientation = orientation;
+			if (typeof players[playernumber].marker === 'undefined') {
+				var newLatLngPN = new L.LatLng(
+					players[playernumber].position[1],
+					players[playernumber].position[0],
+					players[playernumber].position[2]);
+				players[playernumber].marker = L.marker(newLatLngPN).addTo(map);
+			}
 		}
 		for (var player in players) {
-			context.font = "10px Verdana";
-			context.fillStyle = "white";
-			if (typeof players[player].position !== 'undefined') {
-				context.fillText("<"+player+">", players[player].position[0], players[player].position[1]);
-			}
-			// only fill in black for this player
-			context.fillStyle = "black";
-			if (playernumber == player) {
-				context.fillText("<"+player+">", position[0], position[1]);
-			} else if (typeof players[player].position !== 'undefined') {
-				context.fillText("<"+player+">", players[player].position[0], players[player].position[1]);
-			}
+			// $('#messages').append($('<li>').text(player+" this "+players[player].position));
+			var newLatLng = new L.LatLng(players[player].position[1], players[player].position[0], players[player].position[2]);
+			players[player].marker.setLatLng(newLatLng);
 		}
-		players[playernumber] = {
-			position: position,
-			orientation: orientation
-		};
 		// $('#messages').append($('<li>').text(playernumber+" this "+thisplayer));
 		if (thisplayer == playernumber) {
 			if (position[0] === 0 && position[1] === 0 && position[2] === 0) {
-				alert("Beginning again");
+				// alert("Beginning again");
 			}
 			// only move towards mouse if this player is the one who got updated
-			if (oldevx != position[0] || oldevy != position[1]) {
-				move(oldevx,oldevy);
+			if (oldev[0] != position[0] ||
+			    oldev[1] != position[1] ||
+			    oldev[2] != position[2]) {
+				move(oldev);
 			}
 		}
         },
@@ -62,7 +57,7 @@ Player.prototype = {
 	serverturnbegin: function() { console.log(arguments);},
 	serverturnend: function() { console.log(arguments);},
 	serverscore: function(playernumber, score) {
-		players[playernumber] = score;
+		players[playernumber].score = score;
 		if (score == 1) {
 			$('#score').append($('<li id="'+playernumber+'">').text(playernumber+" has "+score+" points"));
 		} else {
@@ -78,7 +73,6 @@ Player.prototype = {
 			}
 			history.pushState( {}, document.title, href+"?"+arguments[0].id );
 		}
-		console.log(arguments);
 		thisplayer = arguments[1];
 	}
 };
@@ -104,5 +98,5 @@ Player.prototype = {
   socket.on('serverturnend', Player.prototype.serverturnend);
   socket.on('servercapability', Player.prototype.servercapability);
   socket.emit('clientrejoin', location.href);
-  socket.emit('clientmove', [0,0,0,0,0,0]);
+  socket.emit('clientmove', [0,0,0], [0,0,0]);
   // socket.emit('clientjoin');
