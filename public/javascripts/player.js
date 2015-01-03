@@ -34,7 +34,7 @@ Player.prototype = {
 		// $('#messages').append($('<li>').text(playernumber+" this "+thisplayer));
 		if (thisplayer == playernumber) {
 			if (position[0] === 0 && position[1] === 0 && position[2] === 0) {
-				// alert("Beginning again");
+				alert("Beginning again");
 			}
 			// only move towards mouse if this player is the one who got updated
 			if (oldev[0] != position[0] ||
@@ -57,6 +57,7 @@ Player.prototype = {
 	serverturnbegin: function() { console.log(arguments);},
 	serverturnend: function() { console.log(arguments);},
 	serverscore: function(playernumber, score) {
+		console.log(playernumber+" "+score);
 		players[playernumber].score = score;
 		if (score == 1) {
 			$('#score').append($('<li id="'+playernumber+'">').text(playernumber+" has "+score+" points"));
