@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "homepage": "https://github.com/freefony/pc.multiplayer",
   "authors": [
-    "femi oni <freefony@gmail.com>"
+    "femi oni <freefony@gmail.com>",
     "john carlson <yottzumm@gmail.com>"
   ],
   "description": "multi player map game framework",
