@@ -1,7 +1,7 @@
 {
-  "name": "playcanvas-multiplayer-pack",
+  "name": "monastery-dwelling",
   "version": "0.0.1",
-  "description": "PlayCanvas multiplayer example game",
+  "description": "Game of chase and ring the bell",
   "main": "app.js",
   "repository": {
     "type": "git",
