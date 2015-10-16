@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var metaServer = "http://localhost:3000";
+var metaServer = "http://monastery-53393.onmodulus.net";
 var Client = require('node-rest-client').Client;
 var client = new Client();
 app.use(express.static(__dirname + '/public'));
