@@ -62,9 +62,9 @@ Player.prototype = {
 		console.log(playernumber+" "+score);
 		players[playernumber].score = score;
 		if (score == 1) {
-			$('#score').append($('<li id="'+playernumber+'">').text(playernumber+" has "+score+" points"));
+			$('#score').append($('<li id="'+playernumber+'">').text(playernumber+" has "+score+" bell rings"));
 		} else {
-			$('#'+playernumber).text(playernumber+" has "+score+" points");
+			$('#'+playernumber).text(playernumber+" has "+score+" bell rings");
 		}
 	},
 	servercapability: function() {
