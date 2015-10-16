@@ -2,9 +2,24 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
-
+var metaServer = "http://localhost:3000";
+var Client = require('node-rest-client').Client;
+var client = new Client();
 app.use(express.static(__dirname + '/public'));
+var router = express.Router();
+router.route('/servers')
+        .get(function(req, res) {
+			console.log(res);
+		try {
+			client.get(metaServer+"/api/servers/", function(gameServers, response){
+				console.log(gameServers);
+				res.json(JSON.parse(gameServers));
+			});
+		} catch (e) {
+			console.log(e);
+		}
+        });
+app.use('/api', router);
 
 
 function Multiplayer() {
@@ -14,12 +29,37 @@ var maxplayers = 0;
 var players = {};
 var oldplayers = {};
 
-function reportPlayers() {
+function reportPlayers(socket) {
 	var numPlayers = 0;
 	for (var p in players) {
 		numPlayers++;
 	}
-	io.emit('servermessage', "The game has "+numPlayers+" player"+(numPlayers > 1 ? "s." : "."));
+	io.emit('servermessage', "The dwelling has "+numPlayers+" resident"+(numPlayers > 1 ? "s." : "."));
+	var uri = socket.handshake.headers.referer;
+        var hostIndex = uri.indexOf("//")+2;
+        var trailing = uri.indexOf("/", hostIndex)-hostIndex;
+        var hostport = uri.substr(hostIndex, trailing);
+        var portIndex = -1;
+        portIndex = hostport.indexOf(":");
+        var host = "localhost";
+        var port = 51000;
+        if (portIndex >= 0) {
+                var host = hostport.substr(0, portIndex);
+                var port = hostport.substr(portIndex+1);
+        } else {
+                host = hostport;
+                port = 80;
+        }
+        var args = { path:{"host": host, port: port, players: numPlayers}};
+	try {
+		client.get(metaServer+"/api/servers/${host}/${port}/${players}", args, function(data, response){
+			console.log(data);
+			console.log(response);
+		});
+	} catch (e) {
+		console.log(e);
+	}
+
 }
 
 Multiplayer.prototype = {
@@ -87,11 +127,11 @@ Multiplayer.prototype = {
 			var id = msg[0].substring(i+1);
 			if (typeof oldplayers[id] !== 'undefined') {
 				players[socket.client.id] = { playernumber: oldplayers[id].playernumber, id: socket.client.id, score: oldplayers[id].score };
-				socket.emit('servermessage', 'Your previous id was '+id);
-				socket.emit('servermessage', 'Your current id is '+socket.client.id);
+				//socket.emit('servermessage', 'Your previous id was '+id);
+				//socket.emit('servermessage', 'Your current id is '+socket.client.id);
 				console.log(players[socket.client.id]);
 				io.emit('servermessage', players[socket.client.id].playernumber+" joined.");
-				reportPlayers();
+				reportPlayers(socket);
 				socket.emit('servercapability', players[socket.client.id], players[socket.client.id].playernumber);
 			} else {
 				Multiplayer.prototype.clientjoin(socket);
@@ -105,7 +145,7 @@ Multiplayer.prototype = {
 		console.log(players[socket.client.id]);
 		maxplayers++;
 		io.emit('servermessage', players[socket.client.id].playernumber+" joined.");
-		reportPlayers();
+		reportPlayers(socket);
 		socket.emit('servercapability', players[socket.client.id], players[socket.client.id].playernumber); }
 };
 
@@ -142,19 +182,22 @@ io.on('connection', function(socket){
 		Multiplayer.prototype.clientjoin(socket);
 	}
   });
+  socket.on('error', function(e){
+	console.log(e);
+  });
   socket.on('disconnect', function(){
 	if (players[socket.client.id]) {
 		io.emit('servermessage', players[socket.client.id].playernumber+" quit.");
 		oldplayers[socket.client.id] = players[socket.client.id];
 		delete players[socket.client.id];
-		reportPlayers();
+		reportPlayers(socket);
 	}
   });
 });
 
 var defaultPort = 8088;
 
-module.exports = http.listen(process.env.PORT || defaultPort);
+http.listen(process.env.PORT || defaultPort);
 
 console.log('express server started on port %s', process.env.PORT || defaultPort);
 

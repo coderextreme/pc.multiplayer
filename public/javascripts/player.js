@@ -8,13 +8,13 @@ Player.prototype = {
 	serverupdate: function(playernumber, position, orientation) {
 		// $('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+orientation));
 		if (typeof players[playernumber] === 'undefined') {
-			$('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+orientation));
+			// $('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+orientation));
 			players[playernumber] = {
 				position: position,
 				orientation: orientation,
 				marker: L.marker(position).addTo(map)
 			};
-			$('#messages').append($('<li>').text(playernumber+" initialized"));
+			// $('#messages').append($('<li>').text(playernumber+" initialized"));
 		} else {
 			players[playernumber].position = position;
 			players[playernumber].orientation = orientation;
@@ -34,7 +34,9 @@ Player.prototype = {
 		// $('#messages').append($('<li>').text(playernumber+" this "+thisplayer));
 		if (thisplayer == playernumber) {
 			if (position[0] === 0 && position[1] === 0 && position[2] === 0) {
-				alert("Beginning again");
+				// alert("Beginning again");
+			        var audio = new Audio("bell.wav");
+				audio.play();
 			}
 			// only move towards mouse if this player is the one who got updated
 			if (oldev[0] != position[0] ||

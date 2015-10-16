@@ -1,9 +1,15 @@
 pc.multiplayer
 ==============
 
-PlayCanvas Multiplayer Pack
+Mercy Center Dwelling
 
-$ npm install
-$ node app.js
+Install node
+Install git
+```
+git clone https://github.com/coderextreme/pc.multiplayer
+cd pc.multiplayer
+npm install
+node app.js
+```
 
 go to localhost:8088 in your browser
