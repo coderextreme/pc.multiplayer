@@ -55,7 +55,7 @@ function addCard(card) {
 	happy
 		.attr("id", "card"+card)
 		.attr("src", "cards/"+pip+suits[s]+".gif")
-		.css({"position": "absolute", "transform": "translate3d(200px,200px,0px) rotateZ("+angle(happy)+"deg) translate3d(0px,100px,0px)"})
+		.css({"position": "absolute", "z-index": card % 52, "transform": "translate3d(200px,200px,0px) rotateZ("+angle(happy)+"deg) translate3d(0px,100px,0px)"})
 	;
 	happy.on("click", function(event) {
 		console.log(event);

@@ -72,9 +72,14 @@ Multiplayer.prototype = {
 		console.log(orientation);
 		if (typeof orientation[0] === 'string') {
 			if (orientation[0] === 'card52') {
-				socket.emit('serverdeal', Multiplayer.prototype.deal(1));
+				var card = Multiplayer.prototype.deal(1);
+				socket.emit('serverdeal', card);
+				for (var cardpicked in card) {
+					players[socket.client.id].cards[cardpicked] = true;
+				}
 			} else {
 				delete cardsTaken[orientation[0].substr(4)];
+				delete players[socket.client.id].cards[orientation[0].substr(4)];
 			}
 			console.log('returned', orientation[0].substr(4));
 		}
@@ -145,7 +150,8 @@ Multiplayer.prototype = {
 				reportPlayers(socket);
 				socket.emit('servercapability', players[socket.client.id], players[socket.client.id].playernumber);
 				console.log('dealing...');
-				socket.emit('serverdeal', Multiplayer.prototype.deal(7));
+				players[socket.client.id].cards = Multiplayer.prototype.deal(7);
+				socket.emit('serverdeal', players[socket.client.id].cards);
 			} else {
 				Multiplayer.prototype.clientjoin(socket);
 			}
@@ -182,7 +188,8 @@ Multiplayer.prototype = {
 		reportPlayers(socket);
 		socket.emit('servercapability', players[socket.client.id], players[socket.client.id].playernumber);
 		console.log('dealing...');
-		socket.emit('serverdeal', Multiplayer.prototype.deal(7));
+		players[socket.client.id].cards = Multiplayer.prototype.deal(7);
+		socket.emit('serverdeal', players[socket.client.id].cards);
 	}
 };
 
@@ -226,6 +233,10 @@ io.on('connection', function(socket){
 	if (players[socket.client.id]) {
 		io.emit('servermessage', players[socket.client.id].playernumber+" quit.");
 		oldplayers[socket.client.id] = players[socket.client.id];
+		for (var card in players[socket.client.id].cards) {
+			delete cardsTaken[card];
+			delete players[socket.client.id].cards[card];
+		}
 		delete players[socket.client.id];
 		reportPlayers(socket);
 	}
