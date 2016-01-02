@@ -37,7 +37,11 @@ function printCard(card) {
 		p = "King";
 		break;
 	}
-	return p + " of " + suits[s];
+	if (s === 4) {
+		return "a draw";
+	} else {
+		return p + " of " + suits[s];
+	}
 }
 
 function addCard(card) {
@@ -58,6 +62,22 @@ function addCard(card) {
 		socket.emit('clientmove', [0,0,0], [this.id, 0, 'Visible']);
 		$(this).remove();
 	});
+}
+
+function addDraw() {
+	if (document.getElementById("card52") === null) { // don't add if already there
+		var ang = 52*335/52;
+		var happy = $("<img>").appendTo("#cardarea");
+		angle(happy, ang);
+		happy
+			.attr("id", "card"+52)
+			.attr("src", "cards/back101.gif")
+			.css({"position": "absolute", "transform": "translate3d(200px,200px,0px) rotateZ("+angle(happy)+"deg) translate3d(0px,100px,0px)"})
+		;
+		happy.on("click", function(event) {
+			socket.emit('clientmove', [0,0,0], [this.id, 0, 'Visible']);
+		});
+	}
 }
 
 function loop() {

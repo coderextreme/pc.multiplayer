@@ -71,7 +71,11 @@ Multiplayer.prototype = {
 		console.log(position);
 		console.log(orientation);
 		if (typeof orientation[0] === 'string') {
-			delete cardsTaken[orientation[0].substr(4)];
+			if (orientation[0] === 'card52') {
+				socket.emit('serverdeal', Multiplayer.prototype.deal(1));
+			} else {
+				delete cardsTaken[orientation[0].substr(4)];
+			}
 			console.log('returned', orientation[0].substr(4));
 		}
 		if (typeof players[socket.client.id].position !== 'undefined') {

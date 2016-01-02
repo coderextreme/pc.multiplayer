@@ -4,22 +4,21 @@ function Player() {
 Player.prototype = {
 	servermessage: function(msg) {
 		$('#messages').append($('<li>').text(msg));
+		scrollToBottom();
 	},
 	serverupdate: function(playernumber, position, orientation) {
 		if (typeof orientation[0] === 'string') {
-			$('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+printCard(orientation[0].substr(4))));
+			Player.prototype.servermessage(playernumber+" at "+position+" turns "+printCard(orientation[0].substr(4)));
 		} else {
-			$('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+orientation));
+			Player.prototype.servermessage(playernumber+" at "+position+" turns "+orientation);
 		}
 		// orientation: stack, number, card, visibility
 		if (typeof players[playernumber] === 'undefined') {
-			// $('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+orientation));
 			players[playernumber] = {
 				position: position,
 				orientation: orientation,
 				marker: L.marker(position).addTo(map)
 			};
-			// $('#messages').append($('<li>').text(playernumber+" initialized"));
 		} else {
 			players[playernumber].position = position;
 			players[playernumber].orientation = orientation;
@@ -32,11 +31,9 @@ Player.prototype = {
 			}
 		}
 		for (var player in players) {
-			// $('#messages').append($('<li>').text(player+" this "+players[player].position));
 			var newLatLng = new L.LatLng(players[player].position[1], players[player].position[0], players[player].position[2]);
 			players[player].marker.setLatLng(newLatLng);
 		}
-		// $('#messages').append($('<li>').text(playernumber+" this "+thisplayer));
 		if (thisplayer == playernumber) {
 			if (position[0] === 0 && position[1] === 0 && position[2] === 0) {
 				// alert("Beginning again");
@@ -70,6 +67,7 @@ Player.prototype = {
 		$.each(cards, function(d) {
 			addCard(d);
 		});
+		addDraw();
 	},
 	serverscore: function(playernumber, score) {
 		console.log(playernumber+" "+score);
