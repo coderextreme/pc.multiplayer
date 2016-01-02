@@ -40,8 +40,8 @@ Player.prototype = {
 		if (thisplayer == playernumber) {
 			if (position[0] === 0 && position[1] === 0 && position[2] === 0) {
 				// alert("Beginning again");
-			        var audio = new Audio("bell.wav");
-				audio.play();
+			        //var audio = new Audio("bell.wav");
+				//audio.play();
 			}
 			// only move towards mouse if this player is the one who got updated
 			if (typeof orientation[0] === 'number') {
