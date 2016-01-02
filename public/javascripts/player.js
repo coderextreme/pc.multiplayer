@@ -6,7 +6,11 @@ Player.prototype = {
 		$('#messages').append($('<li>').text(msg));
 	},
 	serverupdate: function(playernumber, position, orientation) {
-		$('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+orientation));
+		if (typeof orientation[0] === 'string') {
+			$('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+printCard(orientation[0].substr(4))));
+		} else {
+			$('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+orientation));
+		}
 		// orientation: stack, number, card, visibility
 		if (typeof players[playernumber] === 'undefined') {
 			// $('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+orientation));
@@ -36,8 +40,8 @@ Player.prototype = {
 		if (thisplayer == playernumber) {
 			if (position[0] === 0 && position[1] === 0 && position[2] === 0) {
 				// alert("Beginning again");
-			        //var audio = new Audio("bell.wav");
-				//audio.play();
+			        var audio = new Audio("bell.wav");
+				audio.play();
 			}
 			// only move towards mouse if this player is the one who got updated
 			if (typeof orientation[0] === 'number') {

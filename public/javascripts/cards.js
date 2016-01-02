@@ -1,6 +1,3 @@
-var cards = new Array(52);
-var suits = [ "c", "d", "h", "s" ];
-
 function attrNumber(happy, at, value) {
 	if (typeof value == 'undefined') {
 		return parseInt(happy.attr(at));
@@ -22,7 +19,29 @@ $(document).ready(function addCards() {
 });
 */
 
+function printCard(card) {
+	var suits = [ "clubs", "diamonds", "hearts", "spades" ];
+	var s = Math.floor(card / 13);
+	var p = card % 13 + 1;
+	switch (p) {
+	case 1:
+		p = "Ace";
+		break;
+	case 11:
+		p = "Jack";
+		break;
+	case 12:
+		p = "Queen";
+		break;
+	case 13:
+		p = "King";
+		break;
+	}
+	return p + " of " + suits[s];
+}
+
 function addCard(card) {
+	var suits = [ "c", "d", "h", "s" ];
 	var s = Math.floor(card / 13);
 	var p = card % 13 + 1;
 	var pip = (p < 10 ?  "0"+p : p);
@@ -37,6 +56,7 @@ function addCard(card) {
 	happy.on("click", function(event) {
 		console.log(event);
 		socket.emit('clientmove', [0,0,0], [this.id, 0, 'Visible']);
+		$(this).remove();
 	});
 }
 

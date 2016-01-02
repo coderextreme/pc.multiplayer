@@ -70,6 +70,10 @@ Multiplayer.prototype = {
 	clientmove: function(socket, position, orientation) {
 		console.log(position);
 		console.log(orientation);
+		if (typeof orientation[0] === 'string') {
+			delete cardsTaken[orientation[0].substr(4)];
+			console.log('returned', orientation[0].substr(4));
+		}
 		if (typeof players[socket.client.id].position !== 'undefined') {
 			var newposition = position;
 			var oldposition = players[socket.client.id].position;
