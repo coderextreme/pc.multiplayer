@@ -7,9 +7,10 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 app.use(express.static(__dirname + '/public'));
 var router = express.Router();
+var cardsTaken = {};
 router.route('/servers')
         .get(function(req, res) {
-			console.log(res);
+			// console.log(res);
 		try {
 			client.get(metaServer+"/api/servers/", function(gameServers, response){
 				console.log(gameServers);
@@ -53,8 +54,8 @@ function reportPlayers(socket) {
         var args = { path:{"host": host, port: port, players: numPlayers}};
 	try {
 		client.get(metaServer+"/api/servers/${host}/${port}/${players}", args, function(data, response){
-			console.log(data);
-			console.log(response);
+			//console.log(data);
+			//console.log(response);
 		});
 	} catch (e) {
 		console.log(e);
@@ -107,7 +108,9 @@ Multiplayer.prototype = {
 						// reset to beginning
 						players[player].position = [0,0,0];
 						players[socket.client.id].score++;
-						io.emit('serverupdate', players[player].playernumber, players[player].position, players[player].orientation);
+						if (typeof orientation[0] === 'number') {
+							io.emit('serverupdate', players[player].playernumber, players[player].position, players[player].orientation);
+						}
 						io.emit('serverscore', players[socket.client.id].playernumber, players[socket.client.id].score);
 					}
 				}
@@ -133,6 +136,8 @@ Multiplayer.prototype = {
 				io.emit('servermessage', players[socket.client.id].playernumber+" joined.");
 				reportPlayers(socket);
 				socket.emit('servercapability', players[socket.client.id], players[socket.client.id].playernumber);
+				console.log('dealing...');
+				socket.emit('serverdeal', Multiplayer.prototype.deal(7));
 			} else {
 				Multiplayer.prototype.clientjoin(socket);
 			}
@@ -140,13 +145,37 @@ Multiplayer.prototype = {
 			Multiplayer.prototype.clientjoin(socket);
 		}
 	},
+	deal: function(cards) {
+		var hand = {};
+		var ct = 0;
+		for (var c in cardsTaken) {
+			if (cardsTaken.hasOwnProperty(c)) {
+				ct++;
+			}
+		}
+		if (cards > 52 - ct) {
+			cards = 52 - ct;  // reduce cards to number in talon
+		}
+		for (var c = 0; c < cards; c++) {
+			do {
+				var cardpicked = Math.floor(Math.random()*52);
+			} while (cardsTaken[cardpicked]);
+			cardsTaken[cardpicked] = true;
+			hand[cardpicked] = true;
+		}
+		console.log('dealing', hand);
+		return hand;
+	},
 	clientjoin: function(socket) {
 		players[socket.client.id] = {playernumber: maxplayers, id: socket.client.id, score:0};
 		console.log(players[socket.client.id]);
 		maxplayers++;
 		io.emit('servermessage', players[socket.client.id].playernumber+" joined.");
 		reportPlayers(socket);
-		socket.emit('servercapability', players[socket.client.id], players[socket.client.id].playernumber); }
+		socket.emit('servercapability', players[socket.client.id], players[socket.client.id].playernumber);
+		console.log('dealing...');
+		socket.emit('serverdeal', Multiplayer.prototype.deal(7));
+	}
 };
 
 io.on('connection', function(socket){

@@ -6,7 +6,8 @@ Player.prototype = {
 		$('#messages').append($('<li>').text(msg));
 	},
 	serverupdate: function(playernumber, position, orientation) {
-		// $('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+orientation));
+		$('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+orientation));
+		// orientation: stack, number, card, visibility
 		if (typeof players[playernumber] === 'undefined') {
 			// $('#messages').append($('<li>').text(playernumber+" at "+position+" turns "+orientation));
 			players[playernumber] = {
@@ -35,14 +36,16 @@ Player.prototype = {
 		if (thisplayer == playernumber) {
 			if (position[0] === 0 && position[1] === 0 && position[2] === 0) {
 				// alert("Beginning again");
-			        var audio = new Audio("bell.wav");
-				audio.play();
+			        //var audio = new Audio("bell.wav");
+				//audio.play();
 			}
 			// only move towards mouse if this player is the one who got updated
-			if (oldev[0] != position[0] ||
-			    oldev[1] != position[1] ||
-			    oldev[2] != position[2]) {
-				move(oldev);
+			if (typeof orientation[0] === 'number') {
+				if (oldev[0] != position[0] ||
+				    oldev[1] != position[1] ||
+				    oldev[2] != position[2]) {
+					move(oldev);
+				}
 			}
 		}
         },
@@ -58,6 +61,12 @@ Player.prototype = {
 	servercounter: function() { console.log(arguments);},
 	serverturnbegin: function() { console.log(arguments);},
 	serverturnend: function() { console.log(arguments);},
+	serverdeal: function(cards) {
+		console.log('dealing', cards);
+		$.each(cards, function(d) {
+			addCard(d);
+		});
+	},
 	serverscore: function(playernumber, score) {
 		console.log(playernumber+" "+score);
 		players[playernumber].score = score;
@@ -100,6 +109,7 @@ Player.prototype = {
   socket.on('serverturnbegin', Player.prototype.serverturnbegin);
   socket.on('serverturnend', Player.prototype.serverturnend);
   socket.on('servercapability', Player.prototype.servercapability);
+  socket.on('serverdeal', Player.prototype.serverdeal);
   socket.emit('clientrejoin', location.href);
   socket.emit('clientmove', [0,0,0], [0,0,0]);
   // socket.emit('clientjoin');
