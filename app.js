@@ -36,6 +36,7 @@ function reportPlayers(socket) {
 		numPlayers++;
 	}
 	io.emit('servermessage', "The dwelling has "+numPlayers+" resident"+(numPlayers > 1 ? "s." : "."));
+/*
 	var uri = socket.handshake.headers.referer;
         var hostIndex = uri.indexOf("//")+2;
         var trailing = uri.indexOf("/", hostIndex)-hostIndex;
@@ -45,8 +46,8 @@ function reportPlayers(socket) {
         var host = "localhost";
         var port = 51000;
         if (portIndex >= 0) {
-                var host = hostport.substr(0, portIndex);
-                var port = hostport.substr(portIndex+1);
+                host = hostport.substr(0, portIndex);
+                port = hostport.substr(portIndex+1);
         } else {
                 host = hostport;
                 port = 80;
@@ -60,7 +61,7 @@ function reportPlayers(socket) {
 	} catch (e) {
 		console.log(e);
 	}
-
+*/
 }
 
 Multiplayer.prototype = {
@@ -170,9 +171,10 @@ Multiplayer.prototype = {
 		if (cards > 52 - ct) {
 			cards = 52 - ct;  // reduce cards to number in talon
 		}
-		for (var c = 0; c < cards; c++) {
+		for (var crd = 0; crd < cards; crd++) {
+			var cardpicked;
 			do {
-				var cardpicked = Math.floor(Math.random()*52);
+				cardpicked = Math.floor(Math.random()*52);
 			} while (cardsTaken[cardpicked]);
 			cardsTaken[cardpicked] = true;
 			hand[cardpicked] = true;
