@@ -17,7 +17,7 @@ Player.prototype = {
 			players[playernumber] = {
 				position: position,
 				orientation: orientation,
-				marker: L.marker(position).addTo(map)
+				marker: WE.marker(position).addTo(map)
 			};
 		} else {
 			players[playernumber].position = position;
@@ -27,7 +27,7 @@ Player.prototype = {
 					players[playernumber].position[1],
 					players[playernumber].position[0],
 					players[playernumber].position[2]);
-				players[playernumber].marker = L.marker(newLatLngPN).addTo(map);
+				players[playernumber].marker = WE.marker(newLatLngPN).addTo(map);
 			}
 		}
 		for (var player in players) {
