@@ -36,32 +36,32 @@ function reportPlayers(socket) {
 		numPlayers++;
 	}
 	io.emit('servermessage', "The dwelling has "+numPlayers+" resident"+(numPlayers > 1 ? "s." : "."));
-/*
 	var uri = socket.handshake.headers.referer;
-        var hostIndex = uri.indexOf("//")+2;
-        var trailing = uri.indexOf("/", hostIndex)-hostIndex;
-        var hostport = uri.substr(hostIndex, trailing);
-        var portIndex = -1;
-        portIndex = hostport.indexOf(":");
-        var host = "localhost";
-        var port = 51000;
-        if (portIndex >= 0) {
-                host = hostport.substr(0, portIndex);
-                port = hostport.substr(portIndex+1);
-        } else {
-                host = hostport;
-                port = 80;
-        }
-        var args = { path:{"host": host, port: port, players: numPlayers}};
-	try {
-		client.get(metaServer+"/api/servers/${host}/${port}/${players}", args, function(data, response){
-			//console.log(data);
-			//console.log(response);
-		});
-	} catch (e) {
-		console.log(e);
+	if (typeof uri !== 'undefined') {
+		var hostIndex = uri.indexOf("//")+2;
+		var trailing = uri.indexOf("/", hostIndex)-hostIndex;
+		var hostport = uri.substr(hostIndex, trailing);
+		var portIndex = -1;
+		portIndex = hostport.indexOf(":");
+		var host = "localhost";
+		var port = 51000;
+		if (portIndex >= 0) {
+			host = hostport.substr(0, portIndex);
+			port = hostport.substr(portIndex+1);
+		} else {
+			host = hostport;
+			port = 80;
+		}
+		var args = { path:{"host": host, port: port, players: numPlayers}};
+		try {
+			client.get(metaServer+"/api/servers/${host}/${port}/${players}", args, function(data, response){
+				//console.log(data);
+				//console.log(response);
+			});
+		} catch (e) {
+			console.log(e);
+		}
 	}
-*/
 }
 
 Multiplayer.prototype = {
