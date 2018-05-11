@@ -30,5 +30,8 @@
 		"gulp-mocha": "*",
 		"mocha": "*",
 		"socket.io-client": "*"
+	},
+	"scripts": {
+		"start": "node app.js"
 	}
 }
