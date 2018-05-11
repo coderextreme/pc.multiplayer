@@ -55,8 +55,8 @@ function reportPlayers(socket) {
 		var args = { path:{"host": host, port: port, players: numPlayers}};
 		try {
 			client.get(metaServer+"/api/servers/${host}/${port}/${players}", args, function(data, response){
-				//console.log(data);
-				//console.log(response);
+				console.log(data);
+				console.log(response);
 			});
 		} catch (e) {
 			console.log(e);
