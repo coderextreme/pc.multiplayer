@@ -104,6 +104,7 @@ Multiplayer.prototype = {
 			players[socket.client.id].position = [0,0,0];
 			players[socket.client.id].orientation = orientation;
 		}
+		console.log('serverupdate', players[socket.client.id].playernumber, players[socket.client.id].position, players[socket.client.id].orientation);
 		io.emit('serverupdate', players[socket.client.id].playernumber, players[socket.client.id].position, players[socket.client.id].orientation);
 		function close(v1, v2) {
 			return Math.abs(v1 - v2) < 0.01;
@@ -123,6 +124,7 @@ Multiplayer.prototype = {
 						players[player].position = [0,0,0];
 						players[socket.client.id].score++;
 						if (typeof orientation[0] === 'number') {
+							console.log('serverupdate', players[player].playernumber, players[player].position, players[player].orientation);
 							io.emit('serverupdate', players[player].playernumber, players[player].position, players[player].orientation);
 						}
 						io.emit('serverscore', players[socket.client.id].playernumber, players[socket.client.id].score);
