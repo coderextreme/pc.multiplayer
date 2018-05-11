@@ -1,32 +1,34 @@
 {
-  "name": "monastery-dwelling",
-  "version": "0.0.1",
-  "description": "Game of chase and ring the bell",
-  "main": "app.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/coderextreme/pc.multiplayer.git"
-  },
-  "dependencies": {
-    "express": "*",
-    "node-rest-client": "*",
-    "osm2x3d": "*",
-    "socket.io": "*"
-  },
-  "devDependencies": {
-    "chai": "*",
-    "grunt": "*",
-    "grunt-contrib-concat": "*",
-    "grunt-contrib-jshint": "*",
-    "grunt-contrib-nodeunit": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-simple-mocha": "*",
-    "gulp": "*",
-    "gulp-jshint": "*",
-    "gulp-mocha": "*",
-    "gulp-util": "*",
-    "mocha": "*",
-    "socket.io-client": "*"
-  }
+	"name": "monastery-dwelling",
+	"version": "0.0.1",
+	"description": "Game of chase and ring the bell",
+	"main": "app.js",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/coderextreme/pc.multiplayer.git"
+	},
+	"dependencies": {
+		"hoek": "~>4.2.1",
+		"express": "*",
+		"node-rest-client": "*",
+		"osm2x3d": "*",
+		"socket.io": "*"
+	},
+	"devDependencies": {
+		"hoek": "~>4.2.1",
+		"chai": "*",
+		"jshint": "*",
+		"grunt": "*",
+		"grunt-simple-mocha": "*",
+		"grunt-contrib-concat": "*",
+		"grunt-contrib-jshint": "*",
+		"grunt-contrib-uglify": "*",
+		"grunt-contrib-watch": "*",
+		"grunt-contrib-nodeunit": "*",
+		"gulp": "*",
+		"gulp-jshint": "*",
+		"gulp-mocha": "*",
+		"mocha": "*",
+		"socket.io-client": "*"
+	}
 }
