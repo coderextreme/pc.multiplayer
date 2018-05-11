@@ -30,7 +30,7 @@ Player.prototype = {
 				players[playernumber].marker = WE.marker(newLatLngPN).addTo(map);
 			}
 		}
-		onLocationfound = function(e){
+		//onLocationfound = function(e){
 			for (var player in players) {
 				var newLatLng = new L.LatLng(players[player].position[1], players[player].position[0], players[player].position[2]);
 				console.log("update "+player+" "+players[player].position);
@@ -38,10 +38,9 @@ Player.prototype = {
 				players[player].marker = WE.marker(newLatLng).addTo(map);
 
 			}
-		}
-		//map.on('mousedown', onLocationfound);
-		onLocationfound();
-		map.on('locationfound', onLocationfound);
+		//}
+		//onLocationfound();
+		// map.on('locationfound', onLocationfound);
 		if (thisplayer == playernumber) {
 			if (position[0] === 0 && position[1] === 0 && position[2] === 0) {
 				// alert("Beginning again");
