@@ -12,14 +12,17 @@
 		"url": "git://github.com/coderextreme/pc.multiplayer.git"
 	},
 	"dependencies": {
-		"hoek": "~>4.2.1",
+		"hoek": "*",
 		"express": "*",
 		"node-rest-client": "*",
 		"osm2x3d": "*",
-		"socket.io": "*"
+		"socket.io": "*",
+		"extend": "*",
+		"mime": "*",
+		"debug": "*"
 	},
 	"devDependencies": {
-		"hoek": "~>4.2.1",
+		"hoek": "*",
 		"chai": "*",
 		"jshint": "*",
 		"grunt": "*",
