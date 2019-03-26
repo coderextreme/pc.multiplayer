@@ -1,6 +1,6 @@
 {
 	"name": "monastery-dwelling",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Game of chase and ring the bell",
 	"main": "app.js",
 	"engines": {
@@ -13,27 +13,28 @@
 	},
 	"dependencies": {
 		"express": "*",
-		"node-rest-client": "*",
-		"osm2x3d": "*",
+		"node-rest-client": "^3.1.0",
 		"socket.io": "*",
 		"extend": "*",
-		"mime": "*",
-		"debug": "*"
+		"mime": "^2.4.0",
+		"debug": "^4.1.1",
+		"qs": "^6.7.0"
 	},
 	"devDependencies": {
-		"hoek": "*",
+		"js-yaml": "^3.13.0",
 		"chai": "*",
-		"jshint": "*",
-		"grunt": "*",
-		"grunt-simple-mocha": "*",
+		"grunt": "^1.0.4",
 		"grunt-contrib-concat": "*",
 		"grunt-contrib-jshint": "*",
+		"grunt-contrib-nodeunit": "*",
 		"grunt-contrib-uglify": "*",
 		"grunt-contrib-watch": "*",
-		"grunt-contrib-nodeunit": "*",
+		"grunt-simple-mocha": "*",
 		"gulp": "*",
 		"gulp-jshint": "*",
 		"gulp-mocha": "*",
+		"hoek": "*",
+		"jshint": "*",
 		"mocha": "*",
 		"socket.io-client": "*"
 	},
