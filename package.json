@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"express": "*",
-		"node-rest-client": "^3.1.0",
+		"node-rest-client-patched": "^3.1.1",
 		"socket.io": "*",
 		"extend": "*",
 		"mime": "^2.4.0",
