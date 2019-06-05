@@ -21,7 +21,6 @@
 		"qs": "^6.7.0"
 	},
 	"devDependencies": {
-		"js-yaml": "^3.13.0",
 		"chai": "*",
 		"grunt": "^1.0.4",
 		"grunt-contrib-concat": "*",
@@ -34,8 +33,9 @@
 		"gulp-jshint": "*",
 		"gulp-mocha": "*",
 		"hoek": "*",
+		"js-yaml": "^3.13.1",
 		"jshint": "*",
-		"mocha": "*",
+		"mocha": "^6.1.4",
 		"socket.io-client": "*"
 	},
 	"scripts": {
