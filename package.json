@@ -36,7 +36,8 @@
 		"js-yaml": "^3.13.1",
 		"jshint": "*",
 		"mocha": "^6.1.4",
-		"socket.io-client": "*"
+		"socket.io-client": "*",
+		"diff": ">=3.5.0"
 	},
 	"scripts": {
 		"start": "node app.js"
