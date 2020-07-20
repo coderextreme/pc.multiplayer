@@ -13,12 +13,12 @@
 	},
 	"dependencies": {
 		"express": "*",
-		"node-rest-client-patched": "^3.1.1",
+		"node-rest-client-patched": "*",
 		"socket.io": "*",
 		"extend": "*",
-		"mime": "^2.4.0",
-		"debug": "^4.1.1",
-		"qs": "^6.7.0"
+		"mime": "*",
+		"debug": "*",
+		"qs": "*"
 	},
 	"devDependencies": {
 		"chai": "*",
