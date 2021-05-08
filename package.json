@@ -4,25 +4,27 @@
 	"description": "Game of chase and ring the bell",
 	"main": "app.js",
 	"engines": {
-		"npm": "6.14.5",
-		"node": "14.5.0"
+		"npm": "7.12.0",
+		"node": "12.18.2"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/coderextreme/pc.multiplayer.git"
 	},
 	"dependencies": {
-		"express": "*",
-		"node-rest-client-patched": "*",
-		"socket.io": "*",
-		"extend": "*",
-		"mime": "*",
 		"debug": "*",
-		"qs": "*"
+		"express": "*",
+		"extend": "*",
+		"lodash": ">=4.17.21",
+		"mime": "*",
+		"node-rest-client-patched": "*",
+		"qs": "*",
+		"socket.io": "*"
 	},
 	"devDependencies": {
 		"chai": "*",
-		"grunt": "^1.0.4",
+		"diff": ">=3.5.0",
+		"grunt": ">=1.3.0",
 		"grunt-contrib-concat": "*",
 		"grunt-contrib-jshint": "*",
 		"grunt-contrib-nodeunit": "*",
@@ -36,8 +38,7 @@
 		"js-yaml": "^3.13.1",
 		"jshint": "*",
 		"mocha": "^6.1.4",
-		"socket.io-client": "*",
-		"diff": ">=3.5.0"
+		"socket.io-client": "*"
 	},
 	"scripts": {
 		"start": "node app.js"
