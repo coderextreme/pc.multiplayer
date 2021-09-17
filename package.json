@@ -15,7 +15,7 @@
 		"debug": "*",
 		"express": "*",
 		"extend": "*",
-		"lodash": ">=4.17.21",
+		"lodash": "^4.17.21",
 		"mime": "*",
 		"node-rest-client-patched": "*",
 		"qs": "*",
@@ -23,8 +23,8 @@
 	},
 	"devDependencies": {
 		"chai": "*",
-		"diff": ">=3.5.0",
-		"grunt": ">=1.3.0",
+		"diff": "*",
+		"grunt": "*",
 		"grunt-contrib-concat": "*",
 		"grunt-contrib-jshint": "*",
 		"grunt-contrib-nodeunit": "*",
@@ -34,10 +34,10 @@
 		"gulp": "*",
 		"gulp-jshint": "*",
 		"gulp-mocha": "*",
-		"hoek": "*",
-		"js-yaml": "^3.13.1",
+		"@hapi/hoek": "*",
+		"js-yaml": "*",
 		"jshint": "*",
-		"mocha": "^6.1.4",
+		"mocha": "*",
 		"socket.io-client": "*"
 	},
 	"scripts": {
