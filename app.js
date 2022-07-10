@@ -3,7 +3,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var metaServer = "https://salty-beyond-41854.herokuapp.com";
-var Client = require('node-rest-client-patched').Client;
+var Client = require('node-rest-client').Client;
 var client = new Client();
 app.use(express.static(__dirname + '/public'));
 var router = express.Router();
