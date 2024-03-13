@@ -4,8 +4,8 @@
 	"description": "Game of chase and ring the bell",
 	"main": "app.js",
 	"engines": {
-		"npm": "8.8.0",
-		"node": "16.16.0"
+		"npm": "10.4.0",
+		"node": "v21.6.2"
 	},
 	"repository": {
 		"type": "git",
