@@ -1,12 +1,8 @@
 {
 	"name": "monastery-dwelling",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Game of chase and ring the bell",
 	"main": "app.js",
-	"engines": {
-		"npm": "8.8.0",
-		"node": "16.16.0"
-	},
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/coderextreme/pc.multiplayer.git"
