@@ -3,10 +3,6 @@
 	"version": "0.0.4",
 	"description": "Game of chase and ring the bell",
 	"main": "app.js",
-	"engines": {
-		"npm": "10.4.0",
-		"node": "v21.6.2"
-	},
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/coderextreme/pc.multiplayer.git"
