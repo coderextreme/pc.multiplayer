@@ -251,7 +251,7 @@ var defaultPort = 8088;
 
 http.listen(process.env.PORT || defaultPort);
 
-console.log('express server started on port %s', process.env.PORT || defaultPort);
+console.log('go to http://localhost:%s/', process.env.PORT || defaultPort);
 
 http.on('error', function (e) {
   if (e.code == 'EADDRINUSE') {
