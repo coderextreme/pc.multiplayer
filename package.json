@@ -1,6 +1,6 @@
 {
 	"name": "monastery-dwelling",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"description": "Game of chase and ring the bell, cards and chat",
 	"main": "app.js",
 	"repository": {
