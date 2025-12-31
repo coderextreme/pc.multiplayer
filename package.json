@@ -8,7 +8,7 @@
 		"url": "git://github.com/coderextreme/pc.multiplayer.git"
 	},
 	"dependencies": {
-		"debug": "*",
+		"debug": "4.4.3",
 		"express": "*",
 		"extend": "*",
 		"lodash": "*",
